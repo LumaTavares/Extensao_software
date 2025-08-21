@@ -1,35 +1,15 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <title>Blog Django Girls</title>
-    <!-- Link para o CSS estático -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    </head>
-<body>
-    <header>
-        <h1><a href="/">Blog Django Girls</a></h1>
-        <nav>
-            <a href="/">Início</a>
-            <a href="/sobre">Sobre</a>
-            <a href="/contato">Contato</a>
-        </nav>
-    </header>
 
-    <main>
-        <div>
-            <h2><a href="">Meu primeiro post</a></h2>
-            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum...</p>
-            <p>Publicado: 14.06.2014, 12:14</p>
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+            <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+            <p>{{ post.text|linebreaksbr }}</p>
+            <hr>
         </div>
-        <hr>
-        <div>
-            <h2><a href="">Meu segundo post</a></h2>
-            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum...</p>
-            <p>Publicado: 14.06.2014, 12:14</p>
-        </div>
-        <hr>
-    </main>
-</body>
-</html>
+    {% endfor %}
+{% endblock %}
